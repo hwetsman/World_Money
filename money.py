@@ -2,7 +2,7 @@
 import pandas as pd
 import os
 import requests
-
+import fredapi as fa
 
 """
 To do dev list:
