@@ -11,6 +11,16 @@ def Get_Fred_API_Key():
     return key
 
 
+def Get_Fred_Series(series, name):
+    stem = 'https://api.stlouisfed.org/fred/series'
+    fred_str = f'?series_id={series}&api_key={fred_api_key}'
+    asset_series = fred.get_series(series)
+    df = asset_series.to_frame()
+    df.reset_index(inplace=True, drop=False)
+    df.rename(columns={'index': 'Date', 0: name}, inplace=True)
+    return df
+
+
 """
 To do dev list:
 Get API BOE total assets as frequently as possible
@@ -25,27 +35,19 @@ plot the asset and the asset in total world money supply
 
 fred_api_key = Get_Fred_API_Key()
 fred = fa.Fred(api_key=fred_api_key)
+
 # US FED
 print('Working US Fed...\n')
 series = 'RESPPANWW'
-stem = 'https://api.stlouisfed.org/fred/series'
-fred_str = f'?series_id={series}&api_key={fred_api_key}'
-# fred = fa.Fred(api_key=fred_api_key)
-fed_assets = fred.get_series('RESPPANWW')
-Fed_Assets = fed_assets.to_frame()
-Fed_Assets.reset_index(inplace=True, drop=False)
-Fed_Assets.rename(columns={'index': 'Date', 0: 'MM$US'}, inplace=True)
+Fed_Assets = Get_Fred_Series(series, 'USFED')
+# stem = 'https://api.stlouisfed.org/fred/series'
+# fred_str = f'?series_id={series}&api_key={fred_api_key}'
+# fed_assets = fred.get_series('RESPPANWW')
+# Fed_Assets = fed_assets.to_frame()
+# Fed_Assets.reset_index(inplace=True, drop=False)
+# Fed_Assets.rename(columns={'index': 'Date', 0: 'MM$US'}, inplace=True)
 print(Fed_Assets)
-1/0
 
-
-def Get_Fred_Series(series, name):
-    stem = 'https://api.stlouisfed.org/fred/series'
-    fred_str = f'?series_id={series}&api_key={fred_api_key}'
-    fed_assets = fred.get_series(series)
-    Fed_Assets = fed_assets.to_frame()
-    Fed_Assets.reset_index(inplace=True, drop=False)
-    Fed_Assets.rename(columns={'index': 'Date', 0: name}, inplace=True)
 
 #
 
