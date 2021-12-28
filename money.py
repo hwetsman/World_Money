@@ -4,6 +4,12 @@ import os
 import requests
 import fredapi as fa
 
+print('\n')
+print('Getting Fred API Key\n')
+with open('fredapikey.txt', 'r') as file:
+    fred_api_key = file.readline().strip()
+
+
 """
 To do dev list:
 Get API US Fed total assets as frequently as possible
@@ -16,3 +22,19 @@ import assets of interest(sp500, housing, bitcoin, etc)
 allow user to have start and end dates of interest
 plot the asset and the asset in total world money supply
 """
+
+
+# US FED
+print('Working US Fed...\n')
+series = 'RESPPANWW'
+stem = 'https://api.stlouisfed.org/fred/series'
+fred_str = f'?series_id={series}&api_key={fred_api_key}'
+fred = fa.Fred(api_key=fred_api_key)
+fed_assets = fred.get_series('RESPPANWW')
+Fed_Assets = fed_assets.to_frame()
+Fed_Assets.reset_index(inplace=True, drop=False)
+Fed_Assets.rename(columns={'index': 'Date', 0: 'MM$US'}, inplace=True)
+print(Fed_Assets)
+
+
+#
