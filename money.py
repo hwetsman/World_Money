@@ -4,10 +4,11 @@ import os
 import requests
 import fredapi as fa
 
-print('\n')
-print('Getting Fred API Key\n')
-with open('fredapikey.txt', 'r') as file:
-    fred_api_key = file.readline().strip()
+
+def Get_Fred_API_Key():
+    with open('fredapikey.txt', 'r') as file:
+        key = file.readline().strip()
+    return key
 
 
 """
@@ -23,7 +24,7 @@ allow user to have start and end dates of interest
 plot the asset and the asset in total world money supply
 """
 
-
+fred_api_key = Get_Fred_API_Key()
 # US FED
 print('Working US Fed...\n')
 series = 'RESPPANWW'
