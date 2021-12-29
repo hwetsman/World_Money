@@ -32,9 +32,12 @@ import assets of interest(sp500, housing, bitcoin, etc)
 allow user to have start and end dates of interest
 plot the asset and the asset in total world money supply
 """
+months = {'Jan': '01', 'Feb': '02', 'Mar': '03', 'Apr': '04', 'May': '05',
+          'Jun': '06', 'Jul': '07', 'Aug': '08', 'Sep': '09', 'Oct': '10', 'Nov': '11', 'Dec': '12'}
 
 fred_api_key = Get_Fred_API_Key()
 fred = fa.Fred(api_key=fred_api_key)
+
 
 # US FED data is weekly
 print('Working US Fed...\n')
@@ -50,8 +53,7 @@ print(Fed_Assets)
 
 # BOE
 
-months = {'Jan': '01', 'Feb': '02', 'Mar': '03', 'Apr': '04', 'May': '05',
-          'Jun': '06', 'Jul': '07', 'Aug': '08', 'Sep': '09', 'Oct': '10', 'Nov': '11', 'Dec': '12'}
+
 boe_till_14 = pd.read_csv('boe_till_14.csv', sep=' ', names=['Day', 'Mon', 'Yr+data'])
 boe_till_14['Yr+data'] = boe_till_14['Yr+data'].astype(int)
 boe_till_14['Yr+data'] = boe_till_14['Yr+data'].astype(str)
