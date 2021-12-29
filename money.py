@@ -52,30 +52,11 @@ print(Fed_Assets)
 
 
 # BOE
-boe_till_14 = pd.read_csv('boe_till_14.csv', sep=' ', names=['Day', 'Mon', 'Yr+data'])
-boe_till_14['Yr+data'] = boe_till_14['Yr+data'].astype(int)
-boe_till_14['Yr+data'] = boe_till_14['Yr+data'].astype(str)
-boe_till_14['Yr'] = boe_till_14['Yr+data'].str[0:2]
-boe_till_14['BOE'] = boe_till_14['Yr+data'].str[2:]
-boe_till_14.drop('Yr+data', inplace=True, axis=1)
-for idx, row in boe_till_14.iterrows():
-    yr = int(boe_till_14.loc[idx, 'Yr'])
-    if yr > 14:
-        year = '19'+str(yr)
-    else:
-        year = '20'+str(yr)
-    boe_till_14.loc[idx, 'Year'] = year
-    day = str(boe_till_14.loc[idx, 'Day'])
-    if len(day) == 1:
-        day = '0'+day
-    mon = str(boe_till_14.loc[idx, 'Mon'])
-    mon = months.get(mon)
-    boe_till_14.loc[idx, 'Year'] = f'{year}-{mon}-{day}'
-boe_till_14.drop(['Day', 'Mon', 'Yr'], axis=1, inplace=True)
-boe_till_14.rename(columns={'Year': 'Date'}, inplace=True)
-boe_till_14 = boe_till_14[['Date', 'BOE']]
-print(boe_till_14)
+# The BOE doesn't have an API and is very slow as a website
+# get BOE data until 2014 from saved csv
+boe_till_14 = pd.read_csv('boe_till_14.csv')
 
+print(boe_till_14)
 #
 
 #
