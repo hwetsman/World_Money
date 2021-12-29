@@ -21,6 +21,23 @@ def Get_Fred_Series(series, name):
     return df
 
 
+def Fix_BOE(df):
+    for col in df.columns:
+        if col != 'Date':
+            waste, name = col.split('             ', 1)
+            name = name[-7:]
+            df = df.rename(columns={col: name})
+    df.drop(['RPWB58A', 'RPWB9R8', 'RPWBV79', 'RPWB68A',
+             'RPWB67A', 'RPWBL59', 'RPWZ4TM'], axis=1, inplace=True)
+    df = df.fillna(0)
+    df['BOE'] = df.sum(axis=1)
+    df.Date = pd.to_datetime(df.Date)
+    df.drop(['RPWB56A', 'RPWB55A', 'RPWZ4TJ', 'RPWZ4TK', 'RPWZ4TL',
+             'RPWZO8Q', 'RPWZOQ4', 'RPWZOQ3', 'RPWB59A', 'RPWZ4TN'], axis=1, inplace=True)
+    df.sort_values('Date', inplace=True)
+    return df
+
+
 """
 To do dev list:
 Get API BOE total assets since 2014 as frequently as possible
@@ -57,24 +74,13 @@ print('Working BOE...\n')
 # get BOE data until 2014 from saved csv
 boe_till_14 = pd.read_csv('boe_till_14.csv')
 print(boe_till_14)
-boe_14_19 = pd.read_csv('Bank of England Weekly Report  Bank of England  Database.csv')
 
-for col in boe_14_19.columns:
-    # print(col)
-    if col != 'Date':
-        waste, name = col.split('             ', 1)
-        name = name[-7:]
-        boe_14_19 = boe_14_19.rename(columns={col: name})
-boe_14_19.drop(['RPWB58A', 'RPWB9R8', 'RPWBV79', 'RPWB68A',
-               'RPWB67A', 'RPWBL59', 'RPWZ4TM'], axis=1, inplace=True)
-boe_14_19 = boe_14_19.fillna(0)
-boe_14_19['BOE'] = boe_14_19.sum(axis=1)
-boe_14_19.Date = pd.to_datetime(boe_14_19.Date)
-boe_14_19.drop(['RPWB56A', 'RPWB55A', 'RPWZ4TJ', 'RPWZ4TK', 'RPWZ4TL',
-                'RPWZO8Q', 'RPWZOQ4', 'RPWZOQ3', 'RPWB59A', 'RPWZ4TN'], axis=1, inplace=True)
-boe_14_19.sort_values('Date', inplace=True)
-print(boe_14_19.columns)
-print(boe_14_19)
+# replace first line with download text to get latest
+boe_14_19 = pd.read_csv('Bank of England Weekly Report  Bank of England  Database.csv')
+boe_df = Fix_BOE(boe_14_19)
+print(boe_df)
+
+
 #
 
 #
