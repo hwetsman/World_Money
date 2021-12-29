@@ -69,6 +69,7 @@ boe_14_19.drop(['RPWB58A', 'RPWB9R8', 'RPWBV79', 'RPWB68A',
                'RPWB67A', 'RPWBL59', 'RPWZ4TM'], axis=1, inplace=True)
 boe_14_19 = boe_14_19.fillna(0)
 boe_14_19['BOE'] = boe_14_19.sum(axis=1)
+boe_14_19.Date = pd.to_datetime(boe_14_19.Date)
 print(boe_14_19.columns)
 print(boe_14_19)
 #
