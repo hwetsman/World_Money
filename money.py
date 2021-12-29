@@ -23,7 +23,7 @@ def Get_Fred_Series(series, name):
 
 """
 To do dev list:
-Get API BOE total assets as frequently as possible
+Get API BOE total assets since 2014 as frequently as possible
 Get API ECB total assets as frequently as possible
 Get API PBC total assets as frequently as possible
 Use groupby to convert them all to the least frequent of the bunch
@@ -52,8 +52,6 @@ print(Fed_Assets)
 
 
 # BOE
-
-
 boe_till_14 = pd.read_csv('boe_till_14.csv', sep=' ', names=['Day', 'Mon', 'Yr+data'])
 boe_till_14['Yr+data'] = boe_till_14['Yr+data'].astype(int)
 boe_till_14['Yr+data'] = boe_till_14['Yr+data'].astype(str)
