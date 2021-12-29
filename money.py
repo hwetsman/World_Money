@@ -52,11 +52,30 @@ print(Fed_Assets)
 
 
 # BOE
+print('Working BOE...\n')
 # The BOE doesn't have an API and is very slow as a website
 # get BOE data until 2014 from saved csv
 boe_till_14 = pd.read_csv('boe_till_14.csv')
+boe_14_19 = pd.read_csv('Bank of England Weekly Report  Bank of England  Database.csv')
 
-print(boe_till_14)
+# boe_14_19.drop(['Weekly amounts outstanding of Central Bank short-term open market operations (fine-tuning) (in sterling millions) not seasonally adjusted                           RPWB58A',
+#                 'Weekly amounts outstanding of Central Bank sterling short-term market operations with Bank of England counterparties (one-week) (in sterling millions) not seasonally adjusted                           RPWB9R8',
+#                 'Weekly amounts outstanding of Central Bank short-term open market operations (other maturity within-maintenance period sterling) (in sterling millions) not seasonally adjusted                           RPWBV79',
+#                 'Weekly amounts outstanding of Central Bank fine-tuning reverse repos with Bank of England counterparties (in sterling millions) not seasonally adjusted                           RPWB68A',
+#                 'Weekly amounts outstanding of Central Bank one-week reverse repos with Bank of England counterparties (in sterling millions) not seasonally adjusted                           RPWB67A',
+#                 'Weekly amounts outstanding of Central Bank sterling other maturity within-maintenance period reverse repos Bank of England counterparties (in sterling millions) not seasonally adjusted                           RPWBL59'], axis=1, inplace=True)
+print(boe_14_19)
+for col in boe_14_19.columns:
+    # print(col)
+    if col != 'Date':
+        waste, name = col.split('             ', 1)
+        name = name[-7:]
+        boe_14_19 = boe_14_19.rename(columns={col: name})
+boe_14_19.drop(['RPWB58A', 'RPWB9R8', 'RPWBV79', 'RPWB68A',
+               'RPWB67A', 'RPWBL59'], axis=1, inplace=True)
+
+print(boe_14_19.columns)
+print(boe_14_19)
 #
 
 #
