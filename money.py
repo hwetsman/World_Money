@@ -56,6 +56,7 @@ print('Working BOE...\n')
 # The BOE doesn't have an API and is very slow as a website
 # get BOE data until 2014 from saved csv
 boe_till_14 = pd.read_csv('boe_till_14.csv')
+print(boe_till_14)
 boe_14_19 = pd.read_csv('Bank of England Weekly Report  Bank of England  Database.csv')
 
 for col in boe_14_19.columns:
@@ -65,7 +66,7 @@ for col in boe_14_19.columns:
         name = name[-7:]
         boe_14_19 = boe_14_19.rename(columns={col: name})
 boe_14_19.drop(['RPWB58A', 'RPWB9R8', 'RPWBV79', 'RPWB68A',
-               'RPWB67A', 'RPWBL59'], axis=1, inplace=True)
+               'RPWB67A', 'RPWBL59', 'RPWZ4TM'], axis=1, inplace=True)
 boe_14_19 = boe_14_19.fillna(0)
 boe_14_19['BOE'] = boe_14_19.sum(axis=1)
 print(boe_14_19.columns)
