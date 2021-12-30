@@ -73,12 +73,17 @@ print('Working BOE...\n')
 # The BOE doesn't have an API and is very slow as a website
 # get BOE data until 2014 from saved csv
 boe_till_14 = pd.read_csv('boe_till_14.csv')
+boe_till_14.Date = pd.to_datetime(boe_till_14.Date)
+boe_till_14.BOE = boe_till_14.BOE.astype(float)
 print(boe_till_14)
 
 # replace first line with download text to get latest
 boe_14_19 = pd.read_csv('Bank of England Weekly Report  Bank of England  Database.csv')
 boe_df = Fix_BOE(boe_14_19)
 print(boe_df)
+
+BOE_Assets = boe_till_14.append(boe_14_19)
+print(BOE_Assets)
 
 
 #
