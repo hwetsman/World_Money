@@ -76,7 +76,6 @@ boe_till_14 = pd.read_csv('boe_till_14.csv')
 boe_till_14.Date = pd.to_datetime(boe_till_14.Date)
 boe_till_14.BOE = boe_till_14.BOE.astype(float)
 last_date = boe_till_14.Date.max()
-print(boe_till_14)
 
 # replace first line with download text to get latest
 boe_14_19 = pd.read_csv('Bank of England Weekly Report  Bank of England  Database.csv')
@@ -84,8 +83,6 @@ boe_df = Fix_BOE(boe_14_19)
 boe_df.Date = pd.to_datetime(boe_df.Date)
 boe_df.BOE = boe_df.BOE.astype(float)
 boe_df = boe_df[boe_df.Date > last_date]
-print(boe_df)
-print(boe_df.columns)
 
 BOE_Assets = pd.merge(boe_till_14, boe_df, on=['Date', 'BOE'], how='outer')
 print(BOE_Assets)
