@@ -86,8 +86,8 @@ boe_df.BOE = boe_df.BOE.astype(float)
 boe_df = boe_df[boe_df.Date > last_date]
 print(boe_df)
 print(boe_df.columns)
-1/0
-BOE_Assets = boe_till_14.append(boe_df)
+
+BOE_Assets = pd.merge(boe_till_14, boe_df, on=['Date', 'BOE'], how='outer')
 print(BOE_Assets)
 
 
